@@ -1,34 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react'
+import { Routes, Route } from "react-router-dom"
+import Home from './pages/Home'
+import Navbar from './pages/Navbar'
+import { useSelector } from'react-redux';
+import { LoadingOutlined } from '@ant-design/icons';
+import { Flex, Spin } from 'antd';
+import Admin from './pages/Admin';
+import Seller from './pages/Seller';
+import Delivery from './pages/Delivery';
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = () => {
+  const { loading } = useSelector((state) => state.loaders);
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className='app'>
+       {loading && (
+        <div className = 'flex justify-center items-center h-screen w-screen'>
+          <Flex align="center" gap="middle">
+            <Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} />
+          </Flex>
+        </div>
+      )} <Navbar/>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/admin" element={<Admin/>} />
+          <Route path="/seller" element={<Seller />} />
+          <Route path="/delivery" element={<Delivery />} />
+        </Routes>
+    </div>
   )
 }
 
