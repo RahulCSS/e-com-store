@@ -6,7 +6,8 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: true },
     role: { type: String, enum: ['admin', 'user', 'seller', 'delivery'], default: 'user' },
     token: { type: String, default: ''},
-    cart: {type: Object, default: {}}
+    cart: {type: Object, default: {}},
+    createdAt: {type: Date, default: Date.now },
 },{minimize: false});
 
 const userModel = mongoose.model.user || mongoose.model('user', userSchema);

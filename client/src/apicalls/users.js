@@ -1,5 +1,5 @@
 import {axiosInstance} from ".";
-
+const token = localStorage.getItem('token');
 //*Register
 export const RegisterUser = async (payload) => {
     try{
@@ -26,7 +26,7 @@ export const GetCurrentUser = async () => {
     try{
         const response = await axiosInstance.get("/api/user/getcurrentuser",{
             headers:{
-                Authorization: `Bearer ${localStorage.getItem('token')}`
+                Authorization: `Bearer ${token}`
             }
         });
         return response.data;

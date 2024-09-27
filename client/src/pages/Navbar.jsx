@@ -12,9 +12,9 @@ import { GetCurrentUser } from '../apicalls/users';
 // Actions
 import { showLoginModal } from '../store/ModalSlice';
 import { setUser, clearUser } from '../store/UserSlice';
-import { showLoading,hideLoading } from '../store/LoaderSlice';
 
-{/* Menu */}
+
+// Menu
 const menuItems = [
     {
       label: (<Link to="/">Home</Link>),

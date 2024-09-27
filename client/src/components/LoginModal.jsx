@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import { hideLoginModal, showSignUpModal } from '../store/ModalSlice';
 import { setUser } from '../store/UserSlice';
 import { LoginUser } from '../apicalls/users';
-import { useNavigate } from 'react-router-dom';
 
 const Loginmodal = () => {
 
@@ -37,9 +36,6 @@ const Loginmodal = () => {
         }
         form.resetFields();
       }; 
-
-    
-    
   return (
     <Modal
         title="Login"

@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import { connection } from './config/dbConfig.js';
 import { userRouter } from './routes/userRoute.js';
+import { productRouter } from './routes/productRoute.js';
 import 'dotenv/config'
 
 // Configuration
@@ -17,6 +18,7 @@ connection();
 
 // API's
 app.use("/api/user",userRouter);
+app.use("/api/seller",productRouter);
 
 app.listen(port,() =>{
     console.log(`Server listening on http://localhost:${port}`);

@@ -65,7 +65,7 @@ const registerUser = async (req,res) =>{
         })
         const user = await newUser.save();
         const token = createToken (user._id);
-        res.json({success:true, token, message: "User resgistered successfully"}) ;
+        res.json({success:true, token, message: "User registered successfully"}) ;
     }catch(error){
         console.log(error);
         res.json({success:false, message: "Error"});
@@ -94,4 +94,5 @@ const getCurrentUser = async (req,res) =>{
         });
     }
 }; 
+
 export {loginUser, registerUser, getCurrentUser};
