@@ -3,7 +3,7 @@ import productModel from "../models/productModel.js";
 
 // Register product
 const addProduct = async (req,res) =>{
-    const {name, description, price, stock, category} = req.body;
+    const {name, description, price, stock, category,sellerId} = req.body;
     try{
         //checking if product already registered
         const exists = await productModel.findOne({name});

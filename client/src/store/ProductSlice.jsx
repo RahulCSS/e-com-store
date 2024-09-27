@@ -6,6 +6,7 @@ const productSlice = createSlice({
         isProductModalOpen: false,
         editProduct: null,
         fetchProduct: [],
+        formValues: null,
     },
     reducers: {
         showProductModal(state) {
@@ -32,8 +33,18 @@ const productSlice = createSlice({
         },
         clearFetch(state) {
             state.fetchProduct = [];
-        }
+        },
+        formValues(state, action) {
+            state.formValues = action.payload;
+        },
+        clearValues(state) {
+            state.formValues = null;
+        },
+        
     },
 });
-export const { showProductModal, hideProductModal, editProduct, clearProduct, fetchProduct, addFetch, editFetch, clearFetch } = productSlice.actions;
+
+
+  
+export const { showProductModal, hideProductModal, editProduct, clearProduct, fetchProduct, addFetch, editFetch, clearFetch, formValues, clearValues } = productSlice.actions;
 export default productSlice.reducer;

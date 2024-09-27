@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Modal, Form, Input, InputNumber, Select, Button, message } from "antd";
 import { hideProductModal } from "../../store/ProductSlice";
-import { AddProduct, UpdateProduct } from "../../apicalls/product";
-import { clearProduct } from "../../store/ProductSlice";
+import { AddProduct, UpdateProduct} from "../../apicalls/product";
+import { clearProduct, fetchProduct  } from "../../store/ProductSlice";
+import { GetAllProduct } from "../../apicalls/product";
 
 const ProductModal = () => {
   //* Variables
@@ -11,10 +12,11 @@ const ProductModal = () => {
   const dispatch = useDispatch();
   const visible = useSelector((state) => state.products.isProductModalOpen);
   const initialValues = useSelector((state) => state.products.editProduct);
-  
+  const sellerId = useSelector((state) => state.users.user.user._id);
+  const [reload, setReload] = useState(false);
+
   //* API
   const submit = async (values) => {
-    console.log(values);
     try{
       //edit product
       if(initialValues){
@@ -22,16 +24,19 @@ const ProductModal = () => {
         if(response.success){
           message.success(response.message);
           dispatch(clearProduct());
+          setReload(!reload);
         }else{
           message.error(response.message);
         }
       }
       //add product
       else{
-        const response = await AddProduct(values);
+        const product = {...values, sellerId: sellerId};
+        const response = await AddProduct(product);
         if(response.success){
           message.success(response.message);
           dispatch(clearProduct());
+          setReload(!reload);
         }else{
           message.error(response.message);
         }
@@ -41,6 +46,20 @@ const ProductModal = () => {
     }
     dispatch(hideProductModal());
     form.resetFields();
+  };
+  // Fetch products on update
+  const fetchProducts = async () => {
+    try {
+      const response = await GetAllProduct();
+      if (response.success) {
+        message.success(response.message);
+        dispatch(fetchProduct(response.data));
+      } else {
+        message.error(response.message);
+      }
+    } catch (error) {
+      message.error(error.message);
+    }
   };
 
   const cancelSubmit = ()=> {
@@ -54,7 +73,13 @@ const ProductModal = () => {
     } else {
       form.resetFields();
     }
+    
   }, [initialValues, form, visible]);
+
+
+  useEffect(() => {
+    fetchProducts();
+  },[reload]);
 
   return (
     <Modal
@@ -103,10 +128,10 @@ const ProductModal = () => {
           rules={[{ required: true, message: 'Please select a category!' }]}
         >
           <Select placeholder="Select a category">
-            <Select.Option value="electronics">Electronics</Select.Option>
-            <Select.Option value="fashion">Fashion</Select.Option>
-            <Select.Option value="home">Home</Select.Option>
-            <Select.Option value="books">Books</Select.Option>
+            <Select.Option value="Electronics">Electronics</Select.Option>
+            <Select.Option value="Fashion">Fashion</Select.Option>
+            <Select.Option value="Home">Home</Select.Option>
+            <Select.Option value="Books">Books</Select.Option>
           </Select>
         </Form.Item>
         <Form.Item>

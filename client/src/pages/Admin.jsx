@@ -5,17 +5,16 @@ import {
   UserOutlined,
   RadarChartOutlined,
   ShopOutlined,
-  ProductOutlined,
   TruckOutlined,
   CustomerServiceOutlined
 } from '@ant-design/icons';
-import Sellers from '../components/Sellers';
-import Products from '../components/Products';
-import Dashboard from '../components/Dashboard';
-import Orders from '../components/Orders';
-import Customers from '../components/Customers';
-import Complaints from '../components/CustomerService';
-import DeliveryPartner from '../components/DeliveryPartner';
+import Sellers from '../components/Admin/Sellers';
+import Products from '../components/Admin/Products';
+import Dashboard from '../components/Admin/Dashboard';
+import Orders from '../components/Admin/Orders';
+import Customers from '../components/Admin/Customers';
+import Complaints from '../components/Admin/CustomerService';
+import DeliveryPartner from '../components/Admin/DeliveryPartner';
 
 const { Header, Content, Sider } = Layout;
 const Admin = () => {
@@ -99,31 +98,16 @@ const Admin = () => {
       children: [
         {
           key: 'sellers',
-          label: 'Option 1',
+          label: 'Sellers',
         },
         {
-          key: '4',
-          label: 'Option 2',
+          key: 'products',
+          label: 'Products',
         },
       ],
     },
     {
       key: 'g5',
-      label: 'Products',
-      icon: <ProductOutlined />,
-      children: [
-        {
-          key: 'products',
-          label: 'Option 1',
-        },
-        {
-          key: '4',
-          label: 'Option 2',
-        },
-      ],
-    },
-    {
-      key: 'g6',
       label: 'Delivery',
       icon: <TruckOutlined />,
       children: [
@@ -138,7 +122,7 @@ const Admin = () => {
       ],
     },
     {
-      key: 'g7',
+      key: 'g6',
       label: 'Complaints',
       icon: <CustomerServiceOutlined />,
       children: [
@@ -157,8 +141,8 @@ const Admin = () => {
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider collapsible>
-        <div style={{ color: 'white', textAlign: 'center', padding: '20px' }}>
-          Admin Dashboard
+        <div style={{ color: 'white', textAlign: 'center', padding: '20px 10px', fontSize:'1.2rem'}}>
+          Admin
         </div>
         <Menu
           theme="dark"

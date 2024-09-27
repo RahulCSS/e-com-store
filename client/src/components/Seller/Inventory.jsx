@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { Layout, Button, Table, Space, message, Tag } from "antd";
 import ProductModal from './ProductModal';
@@ -52,7 +52,6 @@ const Inventory = () => {
   
   const openEditModal = (product) => {
     dispatch(editProduct(product));
-    console.log(initialValues);
     dispatch(showProductModal());
   };
 
