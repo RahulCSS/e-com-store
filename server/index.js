@@ -18,7 +18,8 @@ connection();
 
 // API's
 app.use("/api/user",userRouter);
-app.use("/api/seller",productRouter);
+app.use("/api/product",productRouter);
+
 
 app.listen(port,() =>{
     console.log(`Server listening on http://localhost:${port}`);

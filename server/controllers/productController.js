@@ -23,7 +23,7 @@ const addProduct = async (req,res) =>{
 // Fetch all products
 const getAllProduct = async (req, res) =>{
     try{
-        const products = await productModel.find();
+        const products = await productModel.find().populate('sellerId', 'name');;
         res.json({success:true, message: "Products fetched successfully", data: products}) ;
     }catch(error){
         console.log(error);
@@ -80,4 +80,24 @@ const deleteProduct = async (req, res) => {
     }
 };
 
-export { addProduct, getProduct, getAllProduct, updateProduct, deleteProduct};
+const updateStatus = async (req, res) => {
+    const { id } = req.params;
+    const { status } = req.body;
+    if (!['pending', 'approved', 'rejected'].includes(status)) {
+        return res.status(400).json({ success: false, message: 'Invalid status value' });
+    }
+    try {
+        const product = await productModel.findById(id);
+        if (!product) {
+          return res.status(404).json({ success: false, message: 'Product not found' });
+        }
+        product.status = status;
+        await product.save();
+        return res.status(200).json({ success: true, message: 'Product status updated successfully' });
+    } catch (error) {
+        return res.status(500).json({ success: false, message: 'Server error', error: error.message });
+    }
+
+};
+
+export { addProduct, getProduct, getAllProduct, updateProduct, deleteProduct , updateStatus};
