@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Menu, Input, Button, Badge, message, Avatar, Space, Dropdown} from 'antd';
 const { Search } = Input;
 import { SearchOutlined, ShoppingCartOutlined, UserOutlined} from '@ant-design/icons';
-import LoginModal from '../components/LoginModal';
-import SignupModal from '../components/SignupModal';
+import LoginModal from '../components/Home/LoginModal';
+import SignupModal from '../components/Home/SignupModal';
 // API
 import { GetCurrentUser } from '../apicalls/users';
 // Actions

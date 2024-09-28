@@ -2,8 +2,8 @@ import React from 'react'
 import { Modal, Form, Input, Button, Flex, message } from "antd";
 import { ArrowRightOutlined, UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons';
 import { useSelector, useDispatch } from'react-redux';
-import { hideSignUpModal,showLoginModal } from '../store/ModalSlice';
-import { RegisterUser } from '../apicalls/users';
+import { hideSignUpModal,showLoginModal } from '../../store/ModalSlice';
+import { RegisterUser } from '../../apicalls/users';
 
 const SignupModal = () => {
     const dispatch = useDispatch();

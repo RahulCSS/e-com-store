@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { Layout, Button, Table, Space, message, Tag } from "antd";
+import { Layout, Button, Table, Space, message, Tag, Image } from "antd";
 import ProductModal from './ProductModal';
 import { DeleteProduct } from "../../apicalls/product";
 import { EditTwoTone, DeleteTwoTone } from "@ant-design/icons";
@@ -50,6 +50,12 @@ const Inventory = () => {
 
   const columns = [
     { title: "Product Name", dataIndex: "name", key: "name" },
+    {
+      title: 'Image',
+      dataIndex: 'imageUrl',
+      key: 'imageUrl',
+      render: (imageUrl) => <Image width={100} src={imageUrl} alt="Product Image" />,
+    },
     { title: "Category", dataIndex: "category", key: "category" },
     { title: "Description", dataIndex: "description", key: "description" },
     { title: "Price", dataIndex: "price", key: "price" },

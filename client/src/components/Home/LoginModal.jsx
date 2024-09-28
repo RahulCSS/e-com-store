@@ -3,9 +3,9 @@ import { Modal, Form, Input, Button, Flex, message } from "antd";
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { hideLoginModal, showSignUpModal } from '../store/ModalSlice';
-import { setUser } from '../store/UserSlice';
-import { LoginUser } from '../apicalls/users';
+import { hideLoginModal, showSignUpModal } from '../../store/ModalSlice';
+import { setUser } from '../../store/UserSlice';
+import { LoginUser } from '../../apicalls/users';
 
 const Loginmodal = () => {
 
