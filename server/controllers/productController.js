@@ -37,12 +37,10 @@ const getProduct = async (req, res) =>{
     try{
         const products = await productModel.find({sellerId: id});
         res.json({success:true, message: "Products fetched successfully", data: products}) ;
-        console.log(products);
         if (!products.length) {
             return res.status(404).json({ success: false, message: 'No products found for this seller' });
           }
     }catch(error){
-        console.log(error);
         res.json({success:false, message: "Error"});
     };
 };

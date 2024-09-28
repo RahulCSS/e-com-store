@@ -6,7 +6,8 @@ import {
   RadarChartOutlined,
   ShopOutlined,
   TruckOutlined,
-  CustomerServiceOutlined
+  CustomerServiceOutlined,
+  ProductOutlined
 } from '@ant-design/icons';
 import Sellers from '../components/Admin/Sellers';
 import Dashboard from '../components/Admin/Dashboard';
@@ -14,6 +15,7 @@ import Orders from '../components/Admin/Orders';
 import Customers from '../components/Admin/Customers';
 import Complaints from '../components/Admin/CustomerService';
 import DeliveryPartner from '../components/Admin/DeliveryPartner';
+import Products from '../components/Admin/Products';
 
 const { Header, Content, Sider } = Layout;
 const Admin = () => {
@@ -32,6 +34,8 @@ const Admin = () => {
         return <Customers/>;
       case 'orders':
         return <Orders />;
+      case 'products':
+        return <Products />;
       case 'sellers':
         return <Sellers />;
       case 'deliverypartner':
@@ -44,7 +48,7 @@ const Admin = () => {
   };
   const adminItems = [
     {
-      key: 'g1',
+      key: 'group1',
       label: 'Dashboard',
       icon: <RadarChartOutlined />,
       children: [
@@ -59,34 +63,19 @@ const Admin = () => {
       ],
     },
     {
-      key: 'g2',
+      key: 'customers',
       label: 'Customers',
       icon: <UserOutlined />,
-      children: [
-        {
-          key: 'cutomers',
-          label: 'Option 1',
-        },
-        {
-          key: '4',
-          label: 'Option 2',
-        },
-      ],
     },
     {
-      key: 'g3',
+      key: 'orders',
       label: 'Orders',
       icon: <ShoppingOutlined />,
-      children: [
-        {
-          key: 'orders',
-          label: 'Option 1',
-        },
-        {
-          key: '4',
-          label: 'Option 2',
-        },
-      ],
+    },
+    {
+      key: 'products',
+      label: 'Products',
+      icon: <ProductOutlined />,
     },
     {
       key: 'sellers',
@@ -97,31 +86,11 @@ const Admin = () => {
       key: 'g5',
       label: 'Delivery',
       icon: <TruckOutlined />,
-      children: [
-        {
-          key: 'delivery',
-          label: 'Option 1',
-        },
-        {
-          key: '4',
-          label: 'Option 2',
-        },
-      ],
     },
     {
       key: 'g6',
       label: 'Complaints',
       icon: <CustomerServiceOutlined />,
-      children: [
-        {
-          key: 'complaints',
-          label: 'Option 1',
-        },
-        {
-          key: '4',
-          label: 'Option 2',
-        },
-      ],
     }
   ];
 

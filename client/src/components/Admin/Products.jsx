@@ -1,73 +1,107 @@
-import React from 'react'
-import {Table, Button, Tag } from 'antd';
-import {CheckCircleOutlined,CloseCircleOutlined} from '@ant-design/icons';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Input, Table, message, Button ,Row, Col } from 'antd';
+const { Search } = Input;
+import { fetchProducts} from "../../store/ProductSlice";
+
 const Products = () => {
-    const products = [
-        { key: '1', name: 'Product 1', seller: 'Seller 1', status: 'Pending' },
-        { key: '2', name: 'Product 2', seller: 'Seller 3', status: 'Pending' },
-      ];
-    
-      const handleApprove = (key) => {
-        // Logic to approve product
-        console.log('Product approved', key);
-      };
-    
-      const handleReject = (key) => {
-        // Logic to reject product
-        console.log('Product rejected', key);
-      };
-    
-      const columns = [
-        {
-          title: 'Product Name',
-          dataIndex: 'name',
-          key: 'name',
-        },
-        {
-          title: 'Seller',
-          dataIndex: 'seller',
-          key: 'seller',
-        },
-        {
-          title: 'Status',
-          dataIndex: 'status',
-          key: 'status',
-          render: (status) => (
-            <Tag color={status === 'Pending' ? 'orange' : 'green'}>
-              {status.toUpperCase()}
-            </Tag>
-          ),
-        },
-        {
-          title: 'Action',
-          key: 'action',
-          render: (_, record) => (
-            <div>
-              {record.status === 'Pending' && (
-                <span>
-                  <Button
-                    type="primary"
-                    onClick={() => handleApprove(record.key)}
-                    icon={<CheckCircleOutlined />}
-                    style={{ marginRight: 8 }}
-                  >
-                    Approve
-                  </Button>
-                  <Button
-                    type="danger"
-                    onClick={() => handleReject(record.key)}
-                    icon={<CloseCircleOutlined />}
-                  >
-                    Reject
-                  </Button>
-                </span>
-              )}
-            </div>
-          ),
-        },
-      ];
-    
-      return <Table columns={columns} dataSource={products} />;
-}
+  const dispatch = useDispatch();
+  const products = useSelector(state=> state.products.fetchProduct);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [searchText, setSearchText] = useState('');
+  const [loading, setLoading] = useState(false);
+  
+  const columns = [
+    {
+      title: 'Product Name',
+      dataIndex: 'name',
+      key: 'name',
+    },
+    {
+      title: 'Description',
+      dataIndex: 'description',
+      key: 'description',
+    },
+    {
+      title: 'Category',
+      dataIndex: 'category',
+      key: 'category',
+    },
+    {
+      title: 'Price',
+      dataIndex: 'price',
+      key: 'price',
+      render: (price) => `₹${price}`,
+    },
+    {
+      title: 'Stock',
+      dataIndex: 'stock',
+      key: 'stock',
+    },
+    {
+      title: 'Status',
+      dataIndex: 'status',
+      key: 'status',
+      render: (status) => (
+        <span
+          style={{
+            color:
+              status === 'pending' ? 'orange' : status === 'approved' ? 'green' : 'red',
+          }}
+        >
+          {status}
+        </span>
+      ),
+    },
+  ];
+
+  //* Handlers
+  // Handle search input
+  const handleSearchChange = (event) => {
+    const value = event.target.value.toLowerCase();
+    setSearchText(value);
+    const filtered = products.filter((product) =>
+      product.name.toLowerCase().includes(value)
+    );
+    setFilteredProducts(filtered);
+  };
+  // Handle show all products
+  const onShowAll = () => {
+    setFilteredProducts(products); // Reset to show all products
+  };
+
+  //* State
+  // Fetch all products by seller once when this component mounts
+  useEffect(() => {
+    dispatch(fetchProducts());
+    setFilteredProducts(products);
+  }, [dispatch]);
+
+  return (
+    <div>
+      <Row justify="space-between" style={{ marginBottom: 20 }}>
+        <Col xs={24} sm={12} md={8} lg={8} xl={8} offset={8}>
+          <Search
+            placeholder="Search products by name"
+            enterButton
+            allowClear
+            value={searchText}
+            onChange={handleSearchChange}
+          />
+        </Col>
+        <Col xs={24} sm={4} md={4} lg={4} xl={4} style={{ textAlign: 'right' }}>
+          <Button onClick={onShowAll}>Show All</Button>
+        </Col>
+      </Row>
+      <Table
+        columns={columns}
+        dataSource={filteredProducts}
+        rowKey="_id"
+        loading={loading}
+        pagination={{ pageSize: 10 }}
+      />
+    </div>
+  );
+};
 
 export default Products
