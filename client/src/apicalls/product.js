@@ -1,4 +1,5 @@
 import {axiosInstance} from ".";
+
 //*Get all product
 export const GetAllProduct = async () => {
     try{
@@ -8,6 +9,17 @@ export const GetAllProduct = async () => {
         return err;
     }
 };
+
+//*Get all product by seller
+export const GetProduct = async (id) => {
+    try{
+        const response = await axiosInstance.get(`/api/seller/getproduct/${id}`);
+        return response.data;
+    }catch(err){
+        return err;
+    }
+};
+
 
 //*Add product
 export const AddProduct = async (payload) => {

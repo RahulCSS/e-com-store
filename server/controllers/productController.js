@@ -31,6 +31,22 @@ const getAllProduct = async (req, res) =>{
     };
 };
 
+// Fetch all products by SellerId
+const getProduct = async (req, res) =>{
+    const { id } = req.params;
+    try{
+        const products = await productModel.find({sellerId: id});
+        res.json({success:true, message: "Products fetched successfully", data: products}) ;
+        console.log(products);
+        if (!products.length) {
+            return res.status(404).json({ success: false, message: 'No products found for this seller' });
+          }
+    }catch(error){
+        console.log(error);
+        res.json({success:false, message: "Error"});
+    };
+};
+
 // Update a product
 const updateProduct = async (req,res) =>{
     const { id } = req.params;
@@ -64,4 +80,4 @@ const deleteProduct = async (req, res) => {
     }
 };
 
-export { addProduct, getAllProduct, updateProduct, deleteProduct};
+export { addProduct, getProduct, getAllProduct, updateProduct, deleteProduct};

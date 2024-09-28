@@ -9,7 +9,6 @@ import {
   CustomerServiceOutlined
 } from '@ant-design/icons';
 import Sellers from '../components/Admin/Sellers';
-import Products from '../components/Admin/Products';
 import Dashboard from '../components/Admin/Dashboard';
 import Orders from '../components/Admin/Orders';
 import Customers from '../components/Admin/Customers';
@@ -35,8 +34,6 @@ const Admin = () => {
         return <Orders />;
       case 'sellers':
         return <Sellers />;
-      case 'products':
-        return <Products />;
       case 'deliverypartner':
         return <DeliveryPartner />;
       case 'complaints':
@@ -92,19 +89,9 @@ const Admin = () => {
       ],
     },
     {
-      key: 'g4',
+      key: 'sellers',
       label: 'Sellers',
       icon: <ShopOutlined />,
-      children: [
-        {
-          key: 'sellers',
-          label: 'Sellers',
-        },
-        {
-          key: 'products',
-          label: 'Products',
-        },
-      ],
     },
     {
       key: 'g5',

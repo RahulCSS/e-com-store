@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Modal, Form, Input, InputNumber, Select, Button, message } from "antd";
 import { hideProductModal } from "../../store/ProductSlice";
 import { AddProduct, UpdateProduct} from "../../apicalls/product";
-import { clearProduct, fetchProduct  } from "../../store/ProductSlice";
-import { GetAllProduct } from "../../apicalls/product";
+import { clearProduct, fetchProductsBySeller  } from "../../store/ProductSlice";
 
 const ProductModal = () => {
   //* Variables
@@ -12,8 +11,7 @@ const ProductModal = () => {
   const dispatch = useDispatch();
   const visible = useSelector((state) => state.products.isProductModalOpen);
   const initialValues = useSelector((state) => state.products.editProduct);
-  const sellerId = useSelector((state) => state.users.user.user._id);
-  const [reload, setReload] = useState(false);
+  const id = useSelector((state) => state.users.user.user._id);
 
   //* API
   const submit = async (values) => {
@@ -24,19 +22,19 @@ const ProductModal = () => {
         if(response.success){
           message.success(response.message);
           dispatch(clearProduct());
-          setReload(!reload);
+          dispatch(fetchProductsBySeller(id));
         }else{
           message.error(response.message);
         }
       }
       //add product
       else{
-        const product = {...values, sellerId: sellerId};
+        const product = {...values, sellerId: id};
         const response = await AddProduct(product);
         if(response.success){
           message.success(response.message);
           dispatch(clearProduct());
-          setReload(!reload);
+          dispatch(fetchProductsBySeller(id));
         }else{
           message.error(response.message);
         }
@@ -46,20 +44,6 @@ const ProductModal = () => {
     }
     dispatch(hideProductModal());
     form.resetFields();
-  };
-  // Fetch products on update
-  const fetchProducts = async () => {
-    try {
-      const response = await GetAllProduct();
-      if (response.success) {
-        message.success(response.message);
-        dispatch(fetchProduct(response.data));
-      } else {
-        message.error(response.message);
-      }
-    } catch (error) {
-      message.error(error.message);
-    }
   };
 
   const cancelSubmit = ()=> {
@@ -77,9 +61,6 @@ const ProductModal = () => {
   }, [initialValues, form, visible]);
 
 
-  useEffect(() => {
-    fetchProducts();
-  },[reload]);
 
   return (
     <Modal

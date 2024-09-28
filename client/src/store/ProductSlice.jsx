@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { GetAllProduct, GetProduct } from "../apicalls/product";
 
 const productSlice = createSlice({
     name: "products",
@@ -6,7 +7,6 @@ const productSlice = createSlice({
         isProductModalOpen: false,
         editProduct: null,
         fetchProduct: [],
-        formValues: null,
     },
     reducers: {
         showProductModal(state) {
@@ -23,28 +23,35 @@ const productSlice = createSlice({
         },
         fetchProduct(state, action) {
             state.fetchProduct = action.payload;
-        },
-        addFetch(state, action) {
-            state.fetchProduct.push(action.payload);
-        },
-        editFetch(state, action){
-            const index = state.fetchProduct.findIndex(product => product._id === action.payload._id);
-            state.fetchProduct[index] = action.payload;
-        },
-        clearFetch(state) {
-            state.fetchProduct = [];
-        },
-        formValues(state, action) {
-            state.formValues = action.payload;
-        },
-        clearValues(state) {
-            state.formValues = null;
-        },
-        
+        }
     },
 });
 
-
+export const fetchProducts = () => async (dispatch) => {
+    try {
+      const response = await GetAllProduct();
+      if (response.success) {
+        dispatch(fetchProduct(response.data));
+      }else{
+        message.error(response.message);
+      }
+    } catch (error) {
+      console.error("Failed to fetch products", error);
+    }
+  };
   
-export const { showProductModal, hideProductModal, editProduct, clearProduct, fetchProduct, addFetch, editFetch, clearFetch, formValues, clearValues } = productSlice.actions;
+  export const fetchProductsBySeller = (id) => async (dispatch) => {
+    try {
+      const response = await GetProduct(id);
+      if (response.success) {
+        dispatch(fetchProduct(response.data));
+      }else{
+        message.error(response.message);
+      }
+    } catch (error) {
+      console.error("Failed to fetch products", error);
+    }
+  };
+  
+export const { showProductModal, hideProductModal, editProduct, clearProduct, fetchProduct } = productSlice.actions;
 export default productSlice.reducer;

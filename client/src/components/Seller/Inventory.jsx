@@ -2,33 +2,19 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { Layout, Button, Table, Space, message, Tag } from "antd";
 import ProductModal from './ProductModal';
-import { GetAllProduct, DeleteProduct } from "../../apicalls/product";
+import { DeleteProduct } from "../../apicalls/product";
 import { EditTwoTone, DeleteTwoTone } from "@ant-design/icons";
-import { clearProduct, showProductModal ,editProduct, fetchProduct} from "../../store/ProductSlice";
+import { clearProduct, showProductModal ,editProduct, fetchProductsBySeller } from "../../store/ProductSlice";
 
 const { Header, Content, Footer } = Layout;
-
+ 
 const Inventory = () => {
   //* Variables
   const dispatch = useDispatch();
   const products = useSelector(state=> state.products.fetchProduct);
-  const initialValues = useSelector((state) => state.products.editProduct);
-
+  const id = useSelector((state) => state.users.user.user._id);
   //* API
-  // Fetch all products
-  const fetchProducts = async () => {
-    try {
-      const response = await GetAllProduct();
-      if (response.success) {
-        message.success(response.message);
-        dispatch(fetchProduct(response.data));
-      } else {
-        message.error(response.message);
-      }
-    } catch (error) {
-      message.error(error.message);
-    }
-  };
+ 
   // Delete a Product
   const handleDelete = async (id) => {
     try{
@@ -56,10 +42,11 @@ const Inventory = () => {
   };
 
   //* State
-  // Fetch all products once when this component mounts
+  // Fetch all products by seller once when this component mounts
   useEffect(() => {
-    fetchProducts();
-  }, []);
+    dispatch(fetchProductsBySeller(id));
+    message.success("Products fetched successfully");
+  }, [dispatch]);
 
   const columns = [
     { title: "Product Name", dataIndex: "name", key: "name" },

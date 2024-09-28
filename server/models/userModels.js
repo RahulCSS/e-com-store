@@ -7,8 +7,8 @@ const userSchema = new mongoose.Schema({
     role: { type: String, enum: ['admin', 'user', 'seller', 'delivery'], default: 'user' },
     token: { type: String, default: ''},
     cart: {type: Object, default: {}},
-    createdAt: {type: Date, default: Date.now },
-},{minimize: false});
+    isActive: { type: Boolean, default: false},
+},{timestamps: true, minimize: false});
 
 const userModel = mongoose.model.user || mongoose.model('user', userSchema);
 
