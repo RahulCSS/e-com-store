@@ -3,7 +3,7 @@ import productModel from "../models/productModel.js";
 
 // Register product
 const addProduct = async (req,res) =>{
-    const {name, description, price, stock, category,sellerId} = req.body;
+    const {name, description, price, stock, category, subcategory, sellerId} = req.body;
     try{
         //checking if product already registered
         const exists = await productModel.findOne({name});
@@ -36,19 +36,19 @@ const getProduct = async (req, res) =>{
     const { id } = req.params;
     try{
         const products = await productModel.find({sellerId: id});
-        res.json({success:true, message: "Products fetched successfully", data: products}) ;
-        if (!products.length) {
+        if (!products || products.length === 0) {
             return res.status(404).json({ success: false, message: 'No products found for this seller' });
-          }
+        }
+        return res.json({ success: true, message: "Products fetched successfully", data: products });
     }catch(error){
-        res.json({success:false, message: "Error"});
+        return res.status(500).json({ success: false, message: "Error fetching products" });
     };
 };
 
 // Update a product
 const updateProduct = async (req,res) =>{
     const { id } = req.params;
-    const {name, description, price, stock, category, imageUrl} = req.body;
+    const {name, description, price, stock, category, subcategory, imageUrl} = req.body;
     try {
         const updatedProduct = await productModel.findByIdAndUpdate(
             id,

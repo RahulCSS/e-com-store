@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { GetAllProduct, GetProduct } from "../apicalls/product";
+import { message } from "antd";
 
 const productSlice = createSlice({
     name: "products",

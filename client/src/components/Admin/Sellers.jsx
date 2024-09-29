@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Tabs, Table, Switch, message} from 'antd';
+import { Tabs, Table, Switch, message, Image} from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts} from "../../store/ProductSlice";
 import { UpdateStatus } from '../../apicalls/product';
@@ -30,6 +30,12 @@ const Sellers = () => {
       key: 'name',
     },
     {
+      title: 'Image',
+      dataIndex: 'imageUrl',
+      key: 'imageUrl',
+      render: (imageUrl) => <Image width={100} src={imageUrl} alt="Product Image" />,
+    },
+    {
       title: 'Description',
       dataIndex: 'description',
       key: 'description',
@@ -38,6 +44,11 @@ const Sellers = () => {
       title: 'Category',
       dataIndex: 'category',
       key: 'category',
+    },
+    {
+      title: 'Subategory',
+      dataIndex: 'subcategory',
+      key: 'subcategory',
     },
     {
       title: 'Price',

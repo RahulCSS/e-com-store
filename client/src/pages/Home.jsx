@@ -1,6 +1,6 @@
 import React from 'react'
-import Carouselbanner from '../components/Carouselbanner'
-import Categorybelt from '../components/Categorybelt'
+import Carouselbanner from '../components/Home/Carouselbanner'
+import Categorybelt from '../components/Home/Categorybelt'
 
 const Home = () => {
   return (

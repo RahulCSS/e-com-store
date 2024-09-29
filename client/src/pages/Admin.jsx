@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Layout, Menu, Table, Button, Tag } from 'antd';
+import { Layout, Menu } from 'antd';
 import {
   ShoppingOutlined,
   UserOutlined,
@@ -12,7 +12,7 @@ import {
 import Sellers from '../components/Admin/Sellers';
 import Dashboard from '../components/Admin/Dashboard';
 import Orders from '../components/Admin/Orders';
-import Customers from '../components/Admin/Customers';
+import Users from '../components/Admin/Users';
 import Complaints from '../components/Admin/CustomerService';
 import DeliveryPartner from '../components/Admin/DeliveryPartner';
 import Products from '../components/Admin/Products';
@@ -30,8 +30,8 @@ const Admin = () => {
     switch (selectedMenu) {
       case 'dashboard':
         return <Dashboard />;
-      case 'customers':
-        return <Customers/>;
+      case 'users':
+        return <Users/>;
       case 'orders':
         return <Orders />;
       case 'products':
@@ -51,22 +51,13 @@ const Admin = () => {
       key: 'group1',
       label: 'Dashboard',
       icon: <RadarChartOutlined />,
-      children: [
-        {
-          key: 'dashboard',
-          label: 'Option 1',
-        },
-        {
-          key: '2',
-          label: 'Option 2',
-        },
-      ],
     },
     {
-      key: 'customers',
-      label: 'Customers',
+      key: 'users',
+      label: 'Users',
       icon: <UserOutlined />,
     },
+
     {
       key: 'orders',
       label: 'Orders',
@@ -83,12 +74,12 @@ const Admin = () => {
       icon: <ShopOutlined />,
     },
     {
-      key: 'g5',
-      label: 'Delivery',
+      key: 'deliverypartner',
+      label: 'Delivery Partner',
       icon: <TruckOutlined />,
     },
     {
-      key: 'g6',
+      key: 'complaints',
       label: 'Complaints',
       icon: <CustomerServiceOutlined />,
     }

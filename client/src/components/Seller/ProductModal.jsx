@@ -20,7 +20,30 @@ const ProductModal = () => {
   const id = useSelector((state) => state.users.user.user._id);
   const [imageUrl, setImageUrl] = useState(initialValues?.imageUrl || "");
   const [loading, setLoading] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [subCategories, setSubCategories] = useState([]);
   const storage = getStorage(app);
+
+  const category = [ "Electronics", "Fashion","Home", "Books", "Grocery", 
+                    "Health", "Toys", "Food", "Statistics", "SelfCare"];
+  const categoryToSubcategories = {
+    Electronics: ["Phones", "Laptops", "Cameras", "Accessories"],
+    Fashion: ["Clothing", "Footwear", "Jewelry", "Accessories"],
+    Home: ["Furniture", "Decor", "Kitchenware", "Bedding"],
+    Books: ["Fiction", "Non-Fiction", "Textbooks", "Comics"],
+    Grocery: ["Fruits & Vegetables", "Dairy", "Snacks", "Beverages"],
+    Health: ["Vitamins", "Supplements", "Personal Care", "Fitness"],
+    Toys: ["Video Games", "Kids Toys", "Cars"],
+    Food: ["Canned Goods", "Frozen Foods", "Condiments", "Baking Supplies"],
+    Stationery: ["Notebooks", "Pens & Pencils", "Art Supplies", "Office Supplies"],
+    SelfCare: ["Skincare", "Haircare", "Bath & Body", "Aroma"],
+  };
+
+  const handleCategoryChange = (value) => {
+    setSelectedCategory(value);
+    setSubCategories(categoryToSubcategories[value] || []);
+    form.setFieldsValue({ subCategory: undefined });
+  };
 
   //* API
   const submit = async (values) => {
@@ -77,7 +100,7 @@ const ProductModal = () => {
       return false;
     }
     handleUpload(file);
-    return false; // Prevent automatic upload
+    return false;
   };
   // Image upload
   const handleUpload = async (file) => {
@@ -111,10 +134,13 @@ const ProductModal = () => {
   useEffect(() => {
     if (initialValues) {
       form.setFieldsValue(initialValues);
+      setSelectedCategory(initialValues.category);
+      setSubCategories(categoryToSubcategories[initialValues.category] || []);
     } else {
       form.resetFields();
+      setSelectedCategory(null);
+      setSubCategories([]);
     }
-    
   }, [initialValues, form, visible]);
 
   return (
@@ -162,20 +188,29 @@ const ProductModal = () => {
           name="category"
           label="Category"
           rules={[{ required: true, message: 'Please select a category!' }]}
+          onChange={handleCategoryChange}
         >
-          <Select placeholder="Select a category">
-            <Select.Option value="Electronics">Electronics</Select.Option>
-            <Select.Option value="Fashion">Fashion</Select.Option>
-            <Select.Option value="Home">Home</Select.Option>
-            <Select.Option value="Books">Books</Select.Option>
-            <Select.Option value="Groceries">Books</Select.Option>
-            <Select.Option value="Health">Books</Select.Option>
-            <Select.Option value="Kids">Books</Select.Option>
-            <Select.Option value="Food">Books</Select.Option>
-            <Select.Option value="Stationary">Books</Select.Option>
-            <Select.Option value="SelfCare">Books</Select.Option>
+          <Select placeholder="Select a category" onChange={handleCategoryChange}>
+          {Object.keys(categoryToSubcategories).map((category) => (
+            <Select.Option key={category} value={category}>
+              {category}
+            </Select.Option>
+          ))}
           </Select>
         </Form.Item>
+          <Form.Item
+            name="subcategory"
+            label="Subcategory"
+            rules={[{ required: true, message: "Please select a subcategory" }]}
+          >
+            <Select placeholder="Select a subcategory">
+              {subCategories.map((subCategory) => (
+                <Select.Option key={subCategory} value={subCategory}>
+                  {subCategory}
+                </Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
         <Form.Item label="Upload Image">
           <Upload
             beforeUpload={beforeUpload}

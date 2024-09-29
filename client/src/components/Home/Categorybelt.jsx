@@ -1,27 +1,27 @@
 import React,{ useState, useRef } from 'react'
 
 const images = [
-    'https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg',
-    'https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg',
-    'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg',
-    'https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg',
-    'https://images.pexels.com/photos/2983101/pexels-photo-2983101.jpeg',
-    'https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg',
-    'https://images.pexels.com/photos/2533266/pexels-photo-2533266.jpeg',
-    'https://images.pexels.com/photos/7428102/pexels-photo-7428102.jpeg',
-    'https://images.pexels.com/photos/8101512/pexels-photo-8101512.jpeg'
+    'https://firebasestorage.googleapis.com/v0/b/zip-store13.appspot.com/o/category%2Fpexels-lastly-699122.jpg?alt=media&token=b178384f-131e-4535-83a6-261a3f93f45e',
+    'https://firebasestorage.googleapis.com/v0/b/zip-store13.appspot.com/o/category%2Fpexels-morningtrain-18105.jpg?alt=media&token=a5d2054d-28ab-4551-8056-2b2436a2c4bd',
+    'https://firebasestorage.googleapis.com/v0/b/zip-store13.appspot.com/o/category%2Fpexels-pixabay-256450.jpg?alt=media&token=796f5f11-e47f-4815-96b7-c980606dbdef',
+    'https://firebasestorage.googleapis.com/v0/b/zip-store13.appspot.com/o/category%2Fpexels-pixabay-161449.jpg?alt=media&token=984363fc-7f3a-4f86-9297-a03c2994d82b',
+    'https://firebasestorage.googleapis.com/v0/b/zip-store13.appspot.com/o/category%2Fpexels-john-finkelstein-680076-1630588.jpg?alt=media&token=68488a04-2108-4421-9c92-3a447cba2440',
+    'https://firebasestorage.googleapis.com/v0/b/zip-store13.appspot.com/o/category%2Fpexels-janetrangdoan-1132047.jpg?alt=media&token=b53b5ad8-d849-4141-9c44-1dc7a9dbb2ba',
+    'https://firebasestorage.googleapis.com/v0/b/zip-store13.appspot.com/o/category%2Fpexels-kseniachernaya-3965557.jpg?alt=media&token=df9a4c1e-4fa8-4c11-93e0-4dd891aebcc8',
+    'https://firebasestorage.googleapis.com/v0/b/zip-store13.appspot.com/o/category%2Fpexels-thngocbich-636237.jpg?alt=media&token=5ba84dc2-4d14-4dff-b42f-193cbd91999b',
+    'https://firebasestorage.googleapis.com/v0/b/zip-store13.appspot.com/o/category%2Fpexels-mdsnmdsnmdsn-2622187.jpg?alt=media&token=2772acd2-60f1-47b2-826b-bd95db0a6eba'
 ];
 
 const categories = [
-                    {name:"itemA",image:images[0]},
-                    {name:"itemB",image:images[1]},
-                    {name:"itemC",image:images[2]},
-                    {name:"itemD",image:images[3]},
-                    {name:"itemE",image:images[4]},
-                    {name:"itemF",image:images[5]},
-                    {name:"itemG",image:images[6]},
-                    {name:"itemH",image:images[7]},
-                    {name:"itemI",image:images[8]},
+                    {name:"Phones",image:images[0]},
+                    {name:"Laptop",image:images[1]},
+                    {name:"Books",image:images[2]},
+                    {name:"Medicine",image:images[3]},
+                    {name:"Fruits",image:images[4]},
+                    {name:"Vegitables",image:images[5]},
+                    {name:"Clothing",image:images[6]},
+                    {name:"Notebook",image:images[7]},
+                    {name:"Skincare",image:images[8]},
 ];
 
 const Categorybelt = () => {

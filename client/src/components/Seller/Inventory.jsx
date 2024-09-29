@@ -12,16 +12,17 @@ const Inventory = () => {
   //* Variables
   const dispatch = useDispatch();
   const products = useSelector(state=> state.products.fetchProduct);
-  const id = useSelector((state) => state.users.user.user._id);
+  const id = useSelector((state) => state.users.user.user._id || null);
   //* API
  
   // Delete a Product
   const handleDelete = async (id) => {
+    console.log(id);
     try{
       const response = await DeleteProduct(id);
       if(response.success){
         message.success(response.message);
-        fetchProducts();
+        dispatch(fetchProductsBySeller(id));
       }else{
         message.error(response.message);
       }
@@ -56,8 +57,9 @@ const Inventory = () => {
       key: 'imageUrl',
       render: (imageUrl) => <Image width={100} src={imageUrl} alt="Product Image" />,
     },
-    { title: "Category", dataIndex: "category", key: "category" },
     { title: "Description", dataIndex: "description", key: "description" },
+    { title: "Category", dataIndex: "category", key: "category" },
+    { title: "Subcategory", dataIndex: "subcategory", key: "subcategory" },
     { title: "Price", dataIndex: "price", key: "price" },
     { title: "Stock", dataIndex: "stock", key: "stock" },
     {

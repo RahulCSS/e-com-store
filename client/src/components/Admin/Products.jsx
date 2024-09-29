@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Input, Table, message, Button ,Row, Col } from 'antd';
+import { Input, Table, message, Button ,Row, Col, Image } from 'antd';
 const { Search } = Input;
 import { fetchProducts} from "../../store/ProductSlice";
 
@@ -18,9 +18,20 @@ const Products = () => {
       key: 'name',
     },
     {
+      title: 'Image',
+      dataIndex: 'imageUrl',
+      key: 'imageUrl',
+      render: (imageUrl) => <Image width={100} src={imageUrl} alt="Product Image" />,
+    },
+    {
       title: 'Description',
       dataIndex: 'description',
       key: 'description',
+    },
+    {
+      title: 'Category',
+      dataIndex: 'category',
+      key: 'category',
     },
     {
       title: 'Category',
